@@ -4,7 +4,7 @@ Basic technical portfolio site for GitHub Pages.
 
 ## Local preview
 
-Open `/home/runner/work/JenniferFrancesWaldern/JenniferFrancesWaldern/index.html` in a browser.
+Open `index.html` in a browser (or serve the repository root with any static file server).
 
 ## Pages
 
