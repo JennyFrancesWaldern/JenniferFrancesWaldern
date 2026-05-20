@@ -254,6 +254,7 @@
         <!-- Download actions -->
         <div class="resume-actions">
           <a
+            id="resume-download-pdf"
             class="btn btn-primary"
             href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
             download="Jennifer_Waldern_AI_Architect_Resume.pdf"
@@ -262,6 +263,7 @@
             ↓ Download PDF
           </a>
           <a
+            id="resume-download-docx"
             class="btn"
             href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.docx"
             download="Jennifer_Waldern_AI_Architect_Resume.docx"
@@ -285,6 +287,7 @@
             <p>
               Your browser could not display the embedded PDF.
               <a
+                id="resume-open-pdf"
                 href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -366,6 +369,41 @@
       // ── PDF iframe fallback ──────────────────────────────────────
       var iframe   = document.getElementById("resume-iframe");
       var fallback = document.getElementById("resume-fallback");
+      var downloadPdfLink = document.getElementById("resume-download-pdf");
+      var downloadDocxLink = document.getElementById("resume-download-docx");
+      var openPdfLink = document.getElementById("resume-open-pdf");
+      var usingAltPaths = false;
+      var resumeBaseName = "Jennifer_Waldern_AI_Architect_Resume";
+      var resumeDir = "assets/resume";
+      var altResumeDir = "docs/assets/resume";
+      var githubPages404Markers = {
+        title: "404",
+        provider: "github pages"
+      };
+
+      var resumePaths = {
+        pdf: {
+          primary: resumeDir + "/" + resumeBaseName + ".pdf",
+          alt:     altResumeDir + "/" + resumeBaseName + ".pdf"
+        },
+        docx: {
+          primary: resumeDir + "/" + resumeBaseName + ".docx",
+          alt:     altResumeDir + "/" + resumeBaseName + ".docx"
+        }
+      };
+
+      function applyResumePaths(pdfPath, docxPath) {
+        if (iframe) { iframe.setAttribute("src", pdfPath); }
+        if (downloadPdfLink) { downloadPdfLink.setAttribute("href", pdfPath); }
+        if (openPdfLink) { openPdfLink.setAttribute("href", pdfPath); }
+        if (downloadDocxLink) { downloadDocxLink.setAttribute("href", docxPath); }
+      }
+
+      function switchToAltPaths() {
+        if (usingAltPaths) { return; }
+        usingAltPaths = true;
+        applyResumePaths(resumePaths.pdf.alt, resumePaths.docx.alt);
+      }
 
       function showFallback() {
         if (iframe)   { iframe.style.display   = "none"; }
@@ -373,17 +411,54 @@
       }
 
       if (iframe) {
-        iframe.addEventListener("error", showFallback);
+        iframe.addEventListener("error", function () {
+          if (!usingAltPaths) {
+            switchToAltPaths();
+          } else {
+            showFallback();
+          }
+        });
 
         // Heuristic: if the iframe stays 0-height after load the browser
         // may have blocked inline PDF rendering (e.g., some mobile WebKit).
         iframe.addEventListener("load", function () {
           setTimeout(function () {
             try {
-              // contentDocument is null for cross-origin PDFs — that is fine.
-              // We check clientHeight as a proxy; an invisible iframe means failure.
-              if (iframe.clientHeight === 0) { showFallback(); }
-            } catch (e) { /* cross-origin security error — PDF is loading fine */ }
+              // contentDocument can be unavailable for cross-origin PDFs.
+              // Detect obvious GitHub Pages 404 loads, then use clientHeight as fallback signal.
+              var frameDoc = iframe.contentDocument;
+              var titleText = frameDoc && frameDoc.title ? frameDoc.title.toLowerCase() : "";
+              var looksLikeGithubPages404 =
+                (titleText.indexOf(githubPages404Markers.title) !== -1 &&
+                 titleText.indexOf(githubPages404Markers.provider) !== -1);
+
+              if (looksLikeGithubPages404) {
+                if (!usingAltPaths) {
+                  switchToAltPaths();
+                } else {
+                  showFallback();
+                }
+                return;
+              }
+
+              if (iframe.clientHeight === 0) {
+                if (!usingAltPaths) {
+                  switchToAltPaths();
+                } else {
+                  showFallback();
+                }
+              }
+            } catch (e) {
+              if (e && e.name === "SecurityError") {
+                /* cross-origin security error — PDF is likely loading fine */
+                return;
+              }
+              if (!usingAltPaths) {
+                switchToAltPaths();
+              } else {
+                showFallback();
+              }
+            }
           }, 800);
         });
       }
