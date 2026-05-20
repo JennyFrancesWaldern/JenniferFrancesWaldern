@@ -891,7 +891,7 @@
           event.preventDefault();
 
           var honeypot = document.getElementById("contact-company");
-          if (honeypot && honeypot.value) {
+          if (honeypot && honeypot.value && honeypot.value.trim()) {
             contactFormFeedback.textContent = "Unable to send message. Please email directly at jfwaldern@gmail.com.";
             contactFormFeedback.className = "form-feedback error";
             return;
