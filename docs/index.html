@@ -378,9 +378,7 @@
       var altResumeDir = "docs/assets/resume";
       var githubPages404Markers = {
         title: "404",
-        bodyA: "github pages",
-        bodyB: "file not found",
-        bodyC: "@githubstatus"
+        provider: "github pages"
       };
 
       var resumePaths = {
@@ -426,18 +424,13 @@
         iframe.addEventListener("load", function () {
           setTimeout(function () {
             try {
-              // contentDocument is null for cross-origin PDFs — that is fine.
-              // We check clientHeight as a proxy; an invisible iframe means failure.
+              // contentDocument can be unavailable for cross-origin PDFs.
+              // Detect obvious GitHub Pages 404 loads, then use clientHeight as fallback signal.
               var frameDoc = iframe.contentDocument;
               var titleText = frameDoc && frameDoc.title ? frameDoc.title.toLowerCase() : "";
-              var bodyText = frameDoc && frameDoc.body && frameDoc.body.textContent
-                ? frameDoc.body.textContent.toLowerCase()
-                : "";
               var looksLikeGithubPages404 =
                 (titleText.indexOf(githubPages404Markers.title) !== -1 &&
-                 bodyText.indexOf(githubPages404Markers.bodyA) !== -1) ||
-                (bodyText.indexOf(githubPages404Markers.bodyB) !== -1 &&
-                 bodyText.indexOf(githubPages404Markers.bodyC) !== -1);
+                 titleText.indexOf(githubPages404Markers.provider) !== -1);
 
               if (looksLikeGithubPages404) {
                 if (!usingAltPaths) {
@@ -455,7 +448,17 @@
                   showFallback();
                 }
               }
-            } catch (e) { /* cross-origin security error — PDF is loading fine */ }
+            } catch (e) {
+              if (e && e.name === "SecurityError") {
+                /* cross-origin security error — PDF is likely loading fine */
+                return;
+              }
+              if (!usingAltPaths) {
+                switchToAltPaths();
+              } else {
+                showFallback();
+              }
+            }
           }, 800);
         });
       }
