@@ -254,6 +254,7 @@
         <!-- Download actions -->
         <div class="resume-actions">
           <a
+            id="resume-download-pdf"
             class="btn btn-primary"
             href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
             download="Jennifer_Waldern_AI_Architect_Resume.pdf"
@@ -262,6 +263,7 @@
             ↓ Download PDF
           </a>
           <a
+            id="resume-download-docx"
             class="btn"
             href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.docx"
             download="Jennifer_Waldern_AI_Architect_Resume.docx"
@@ -285,6 +287,7 @@
             <p>
               Your browser could not display the embedded PDF.
               <a
+                id="resume-open-pdf"
                 href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -366,6 +369,46 @@
       // ── PDF iframe fallback ──────────────────────────────────────
       var iframe   = document.getElementById("resume-iframe");
       var fallback = document.getElementById("resume-fallback");
+      var downloadPdfLink = document.getElementById("resume-download-pdf");
+      var downloadDocxLink = document.getElementById("resume-download-docx");
+      var openPdfLink = document.getElementById("resume-open-pdf");
+
+      var resumePaths = {
+        pdf: {
+          primary: "assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf",
+          alt:     "docs/assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
+        },
+        docx: {
+          primary: "assets/resume/Jennifer_Waldern_AI_Architect_Resume.docx",
+          alt:     "docs/assets/resume/Jennifer_Waldern_AI_Architect_Resume.docx"
+        }
+      };
+
+      function fileExists(path) {
+        return fetch(path, { method: "HEAD", cache: "no-store" })
+          .then(function (res) { return res.ok; })
+          .catch(function () { return false; });
+      }
+
+      function applyResumePaths(pdfPath, docxPath) {
+        if (iframe) { iframe.setAttribute("src", pdfPath); }
+        if (downloadPdfLink) { downloadPdfLink.setAttribute("href", pdfPath); }
+        if (openPdfLink) { openPdfLink.setAttribute("href", pdfPath); }
+        if (downloadDocxLink) { downloadDocxLink.setAttribute("href", docxPath); }
+      }
+
+      function initializeResumePaths() {
+        if (window.location.protocol === "file:") { return; }
+
+        Promise.all([
+          fileExists(resumePaths.pdf.primary),
+          fileExists(resumePaths.docx.primary)
+        ]).then(function (exists) {
+          var pdfPath = exists[0] ? resumePaths.pdf.primary : resumePaths.pdf.alt;
+          var docxPath = exists[1] ? resumePaths.docx.primary : resumePaths.docx.alt;
+          applyResumePaths(pdfPath, docxPath);
+        });
+      }
 
       function showFallback() {
         if (iframe)   { iframe.style.display   = "none"; }
@@ -387,6 +430,8 @@
           }, 800);
         });
       }
+
+      initializeResumePaths();
     }());
   </script>
 </body>
