@@ -373,15 +373,18 @@
       var downloadDocxLink = document.getElementById("resume-download-docx");
       var openPdfLink = document.getElementById("resume-open-pdf");
       var usingAltPaths = false;
+      var resumeBaseName = "Jennifer_Waldern_AI_Architect_Resume";
+      var resumeDir = "assets/resume";
+      var altResumeDir = "docs/assets/resume";
 
       var resumePaths = {
         pdf: {
-          primary: "assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf",
-          alt:     "docs/assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
+          primary: resumeDir + "/" + resumeBaseName + ".pdf",
+          alt:     altResumeDir + "/" + resumeBaseName + ".pdf"
         },
         docx: {
-          primary: "assets/resume/Jennifer_Waldern_AI_Architect_Resume.docx",
-          alt:     "docs/assets/resume/Jennifer_Waldern_AI_Architect_Resume.docx"
+          primary: resumeDir + "/" + resumeBaseName + ".docx",
+          alt:     altResumeDir + "/" + resumeBaseName + ".docx"
         }
       };
 
@@ -419,6 +422,24 @@
             try {
               // contentDocument is null for cross-origin PDFs — that is fine.
               // We check clientHeight as a proxy; an invisible iframe means failure.
+              var frameDoc = iframe.contentDocument;
+              var titleText = frameDoc && frameDoc.title ? frameDoc.title.toLowerCase() : "";
+              var bodyText = frameDoc && frameDoc.body && frameDoc.body.textContent
+                ? frameDoc.body.textContent.toLowerCase()
+                : "";
+              var looksLikeGithubPages404 =
+                titleText.indexOf("404") !== -1 ||
+                (bodyText.indexOf("file not found") !== -1 && bodyText.indexOf("github pages") !== -1);
+
+              if (looksLikeGithubPages404) {
+                if (!usingAltPaths) {
+                  switchToAltPaths();
+                } else {
+                  showFallback();
+                }
+                return;
+              }
+
               if (iframe.clientHeight === 0) { showFallback(); }
             } catch (e) { /* cross-origin security error — PDF is loading fine */ }
           }, 800);
