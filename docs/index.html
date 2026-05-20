@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Jennifer Frances Waldern — AI Architect portfolio and resume." />
+  <title>Jennifer Frances Waldern | AI Architect</title>
+
+  <style>
+    /* ── Reset & tokens ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:        #0f1117;
+      --color-surface:   #1a1d27;
+      --color-border:    #2e3248;
+      --color-accent:    #7b6ff0;
+      --color-accent-h:  #9d94f5;
+      --color-text:      #e2e4f0;
+      --color-muted:     #8b8fa8;
+      --radius:          8px;
+      --tab-h:           44px;
+      --nav-w:           220px;
+      --transition:      0.2s ease;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--color-accent); }
+    a:hover, a:focus-visible { color: var(--color-accent-h); }
+    a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+    /* ── Layout ──────────────────────────────────────────────────── */
+    .layout {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Header ──────────────────────────────────────────────────── */
+    header {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 1.25rem 2rem;
+    }
+    header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.01em; }
+    header p  { font-size: 0.875rem; color: var(--color-muted); margin-top: 0.15rem; }
+
+    /* ── Tab nav ─────────────────────────────────────────────────── */
+    nav[role="tablist"] {
+      display: flex;
+      gap: 0;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav[role="tablist"]::-webkit-scrollbar { display: none; }
+
+    [role="tab"] {
+      flex-shrink: 0;
+      height: var(--tab-h);
+      padding: 0 1.1rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--color-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition);
+      white-space: nowrap;
+    }
+    [role="tab"]:hover        { color: var(--color-text); }
+    [role="tab"]:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: -2px;
+    }
+    [role="tab"][aria-selected="true"] {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+
+    /* ── Tab panels ──────────────────────────────────────────────── */
+    main { padding: 2rem; }
+
+    [role="tabpanel"] { display: none; }
+    [role="tabpanel"].active { display: block; }
+
+    /* ── Section headings ────────────────────────────────────────── */
+    .section-heading {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+    .section-sub {
+      font-size: 0.875rem;
+      color: var(--color-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Resume tab ──────────────────────────────────────────────── */
+    .resume-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      color: var(--color-text);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .btn:hover, .btn:focus-visible {
+      border-color: var(--color-accent);
+      color: var(--color-accent-h);
+    }
+    .btn-primary {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #fff;
+    }
+    .btn-primary:hover, .btn-primary:focus-visible {
+      background: var(--color-accent-h);
+      border-color: var(--color-accent-h);
+      color: #fff;
+    }
+
+    /* PDF viewer wrapper */
+    .pdf-wrapper {
+      position: relative;
+      width: 100%;
+      /* Responsive height: fills viewport minus header/nav/actions */
+      height: clamp(500px, calc(100vh - 260px), 1100px);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .pdf-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Fallback shown when iframe cannot render PDF */
+    .pdf-fallback {
+      display: none; /* shown by JS if iframe errors */
+      padding: 2rem;
+      text-align: center;
+      color: var(--color-muted);
+      font-size: 0.9rem;
+    }
+    .pdf-fallback a { font-weight: 600; }
+
+    /* Mobile: reduce wrapper height */
+    @media (max-width: 640px) {
+      header { padding: 1rem; }
+      main   { padding: 1rem; }
+      nav[role="tablist"] { padding: 0 1rem; }
+      .pdf-wrapper { height: clamp(400px, 75vw, 700px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+
+    <!-- ── Header ── -->
+    <header>
+      <h1>Jennifer Frances Waldern</h1>
+      <p>AI Architect &amp; Technology Leader</p>
+    </header>
+
+    <!-- ── Tab navigation ── -->
+    <nav role="tablist" aria-label="Portfolio sections">
+      <button
+        role="tab"
+        id="tab-about"
+        aria-controls="panel-about"
+        aria-selected="false"
+        tabindex="-1"
+      >About</button>
+
+      <button
+        role="tab"
+        id="tab-resume"
+        aria-controls="panel-resume"
+        aria-selected="true"
+        tabindex="0"
+      >Resume</button>
+
+      <button
+        role="tab"
+        id="tab-projects"
+        aria-controls="panel-projects"
+        aria-selected="false"
+        tabindex="-1"
+      >Projects</button>
+
+      <button
+        role="tab"
+        id="tab-contact"
+        aria-controls="panel-contact"
+        aria-selected="false"
+        tabindex="-1"
+      >Contact</button>
+    </nav>
+
+    <!-- ── Tab panels ── -->
+    <main>
+
+      <!-- About -->
+      <section
+        role="tabpanel"
+        id="panel-about"
+        aria-labelledby="tab-about"
+      >
+        <h2 class="section-heading">About</h2>
+        <p class="section-sub">Coming soon.</p>
+      </section>
+
+      <!-- Resume ─────────────────────────────────────────────────── -->
+      <section
+        role="tabpanel"
+        id="panel-resume"
+        aria-labelledby="tab-resume"
+        class="active"
+      >
+        <h2 class="section-heading">Resume</h2>
+        <p class="section-sub">
+          View my resume below, or download a copy in your preferred format.
+        </p>
+
+        <!-- Download actions -->
+        <div class="resume-actions">
+          <a
+            class="btn btn-primary"
+            href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
+            download="Jennifer_Waldern_AI_Architect_Resume.pdf"
+            aria-label="Download resume as PDF"
+          >
+            ↓ Download PDF
+          </a>
+          <a
+            class="btn"
+            href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.docx"
+            download="Jennifer_Waldern_AI_Architect_Resume.docx"
+            aria-label="Download resume as Word document (DOCX) for ATS or recruiter use"
+          >
+            ↓ Download DOCX
+          </a>
+        </div>
+
+        <!-- Embedded PDF viewer -->
+        <div class="pdf-wrapper">
+          <iframe
+            id="resume-iframe"
+            src="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
+            title="Jennifer Frances Waldern — AI Architect Resume (PDF)"
+            aria-label="Embedded PDF resume viewer"
+          ></iframe>
+
+          <!-- Fallback — displayed by JS when iframe load fails -->
+          <div class="pdf-fallback" id="resume-fallback" role="alert" aria-live="polite">
+            <p>
+              Your browser could not display the embedded PDF.
+              <a
+                href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Open the PDF directly ↗</a>
+              or use one of the download links above.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section
+        role="tabpanel"
+        id="panel-projects"
+        aria-labelledby="tab-projects"
+      >
+        <h2 class="section-heading">Projects</h2>
+        <p class="section-sub">Coming soon.</p>
+      </section>
+
+      <!-- Contact -->
+      <section
+        role="tabpanel"
+        id="panel-contact"
+        aria-labelledby="tab-contact"
+      >
+        <h2 class="section-heading">Contact</h2>
+        <p class="section-sub">Coming soon.</p>
+      </section>
+
+    </main>
+  </div><!-- /.layout -->
+
+  <script>
+    // ── Accessible tab widget ──────────────────────────────────────
+    (function () {
+      "use strict";
+
+      var tabs   = Array.from(document.querySelectorAll('[role="tab"]'));
+      var panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+      function activate(tab) {
+        tabs.forEach(function (t) {
+          var selected = (t === tab);
+          t.setAttribute("aria-selected", String(selected));
+          t.setAttribute("tabindex",       selected ? "0" : "-1");
+        });
+        panels.forEach(function (p) {
+          p.classList.toggle("active", p.id === tab.getAttribute("aria-controls"));
+        });
+        tab.focus();
+
+        // Persist active tab across page reloads
+        try { sessionStorage.setItem("activeTab", tab.id); } catch (e) {}
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () { activate(tab); });
+
+        // Arrow-key navigation (ARIA authoring practices §3.23)
+        tab.addEventListener("keydown", function (e) {
+          var idx = tabs.indexOf(e.currentTarget);
+          if (e.key === "ArrowRight") { activate(tabs[(idx + 1) % tabs.length]); }
+          if (e.key === "ArrowLeft")  { activate(tabs[(idx - 1 + tabs.length) % tabs.length]); }
+          if (e.key === "Home")       { activate(tabs[0]); }
+          if (e.key === "End")        { activate(tabs[tabs.length - 1]); }
+        });
+      });
+
+      // Restore last active tab from session
+      try {
+        var saved = sessionStorage.getItem("activeTab");
+        if (saved) {
+          var t = document.getElementById(saved);
+          if (t) { activate(t); }
+        }
+      } catch (e) {}
+
+      // ── PDF iframe fallback ──────────────────────────────────────
+      var iframe   = document.getElementById("resume-iframe");
+      var fallback = document.getElementById("resume-fallback");
+
+      function showFallback() {
+        if (iframe)   { iframe.style.display   = "none"; }
+        if (fallback) { fallback.style.display  = "block"; }
+      }
+
+      if (iframe) {
+        iframe.addEventListener("error", showFallback);
+
+        // Heuristic: if the iframe stays 0-height after load the browser
+        // may have blocked inline PDF rendering (e.g., some mobile WebKit).
+        iframe.addEventListener("load", function () {
+          setTimeout(function () {
+            try {
+              // contentDocument is null for cross-origin PDFs — that is fine.
+              // We check clientHeight as a proxy; an invisible iframe means failure.
+              if (iframe.clientHeight === 0) { showFallback(); }
+            } catch (e) { /* cross-origin security error — PDF is loading fine */ }
+          }, 800);
+        });
+      }
+    }());
+  </script>
+</body>
+</html>
