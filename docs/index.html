@@ -428,8 +428,8 @@
                 ? frameDoc.body.textContent.toLowerCase()
                 : "";
               var looksLikeGithubPages404 =
-                titleText.indexOf("404") !== -1 ||
-                (bodyText.indexOf("file not found") !== -1 && bodyText.indexOf("github pages") !== -1);
+                (titleText.indexOf("404") !== -1 && bodyText.indexOf("github pages") !== -1) ||
+                (bodyText.indexOf("file not found") !== -1 && bodyText.indexOf("@githubstatus") !== -1);
 
               if (looksLikeGithubPages404) {
                 if (!usingAltPaths) {
