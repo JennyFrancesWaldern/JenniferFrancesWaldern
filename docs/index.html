@@ -107,6 +107,176 @@
       margin-bottom: 1.5rem;
     }
 
+    .stack {
+      display: grid;
+      gap: 1.25rem;
+    }
+    .hero {
+      padding: 1.25rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+    }
+    .hero h3 {
+      font-size: 1.55rem;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+    .hero .lead {
+      color: var(--color-muted);
+      margin-bottom: 1rem;
+    }
+    .content-block {
+      padding: 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: rgba(26, 29, 39, 0.45);
+    }
+    .content-block h3 {
+      font-size: 1rem;
+      margin-bottom: 0.55rem;
+    }
+    .content-block p + p { margin-top: 0.85rem; }
+
+    .compact-list {
+      margin-left: 1.2rem;
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+      padding: 0.9rem;
+    }
+    .card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.45rem;
+    }
+    .card p {
+      font-size: 0.88rem;
+      color: var(--color-muted);
+    }
+
+    .project-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    .project-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+      padding: 1rem;
+    }
+    .project-card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.4rem;
+    }
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.75rem;
+      color: var(--color-muted);
+      font-size: 0.83rem;
+    }
+    .project-card h4 {
+      font-size: 0.9rem;
+      margin: 0.7rem 0 0.35rem;
+    }
+    .project-card ul {
+      margin-left: 1.1rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .tag {
+      display: inline-block;
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.76rem;
+      color: var(--color-muted);
+    }
+
+    .contact-layout {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .contact-links p + p { margin-top: 0.65rem; }
+    .contact-links strong {
+      display: inline-block;
+      min-width: 90px;
+      color: var(--color-text);
+    }
+    .form-shell {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+      padding: 1rem;
+    }
+    .field {
+      display: grid;
+      gap: 0.35rem;
+      margin-bottom: 0.85rem;
+    }
+    .field label {
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+    .field input,
+    .field textarea {
+      width: 100%;
+      background: var(--color-bg);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 0.62rem 0.72rem;
+      font: inherit;
+    }
+    .field input:focus-visible,
+    .field textarea:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 1px;
+      border-color: var(--color-accent);
+    }
+    .field textarea {
+      min-height: 145px;
+      resize: vertical;
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      border: 0;
+      padding: 0;
+      white-space: nowrap;
+      clip-path: inset(100%);
+      clip: rect(0 0 0 0);
+      overflow: hidden;
+    }
+    .form-feedback {
+      margin-top: 0.7rem;
+      font-size: 0.86rem;
+      color: var(--color-muted);
+    }
+    .form-feedback.success { color: #b8ebc2; }
+    .form-feedback.error { color: #ffb4b4; }
+
     /* ── Resume tab ──────────────────────────────────────────────── */
     .resume-actions {
       display: flex;
@@ -236,7 +406,104 @@
         aria-labelledby="tab-about"
       >
         <h2 class="section-heading">About</h2>
-        <p class="section-sub">Coming soon.</p>
+        <p class="section-sub">
+          I’m Jennifer Waldern — a senior data scientist, AI architect, applied AI builder, and researcher with 14+ years of experience across Microsoft, SAP, startup work, and human-centered AI research.
+        </p>
+
+        <div class="stack">
+          <section class="hero" aria-labelledby="about-hero-heading">
+            <h3 id="about-hero-heading">About Me</h3>
+            <p class="lead">
+              I work at the intersection of AI systems, data architecture, product strategy, and research.
+            </p>
+            <p>
+              My background spans large-scale enterprise analytics, Windows product telemetry, AI feature measurement, experimentation, applied machine learning, LLM-assisted workflows, and research on neurodivergence, communication, and responsible technology design.
+            </p>
+            <p>
+              I’m especially interested in systems that turn ambiguity into something actionable: trusted metrics, explainable models, decision-support tools, AI workflows, and product experiences that help people understand complex information more clearly.
+            </p>
+          </section>
+
+          <section class="content-block" aria-labelledby="about-body-heading">
+            <h3 id="about-body-heading">Background</h3>
+            <p>
+              I have spent much of my career building the connective tissue between raw data, technical systems, and real product decisions.
+            </p>
+            <p>
+              At Microsoft, I’ve worked across Windows data science and AI/product analytics, owning executive-facing metrics, forecasting, experimentation, roadmap inputs, adoption analysis, and measurement frameworks for product experiences reaching hundreds of millions of devices. My work has included Microsoft Account growth measurement, AI feature adoption, Click-to-Do funnel analysis, File Explorer Search success measurement, and new frameworks for evaluating AI product value.
+            </p>
+            <p>
+              Before Microsoft, I worked across enterprise analytics and platform engineering at SAP, where I built data models, reporting systems, migration strategies, automation frameworks, and BI tooling across complex CRM, ERP, and internal development systems.
+            </p>
+            <p>
+              Alongside my corporate work, I’m building HitsHome, an AI decision intelligence platform for real estate and location analytics. HitsHome brings together structured data pipelines, geographic scoring, housing and economic datasets, explainable recommendations, and agent-enabled workflows to help people make clearer, more contextual real estate decisions.
+            </p>
+            <p>
+              My research background includes work with Microsoft Research on accessibility, neurodivergence, video calling, communication, and AI design. I co-authored two ACM publications on autistic adults’ communication needs and AI design, and I continue to be interested in consciousness, cognition, epistemology, human interpretation, and the ethical limits of AI systems.
+            </p>
+          </section>
+
+          <section class="content-block" aria-labelledby="build-heading">
+            <h3 id="build-heading">What I Build</h3>
+            <ul class="compact-list">
+              <li>AI-assisted workflows that combine structured data, LLMs, retrieval, tools, and evaluation.</li>
+              <li>Data and metric systems that create shared truth for product and business decisions.</li>
+              <li>Predictive and explanatory models for adoption, engagement, search quality, user behavior, and market intelligence.</li>
+              <li>Executive-facing analytics that translate technical signal into roadmap and strategy.</li>
+              <li>Human-centered AI concepts grounded in usability, trust, cognitive difference, and responsible deployment.</li>
+            </ul>
+          </section>
+
+          <section class="content-block" aria-labelledby="work-heading">
+            <h3 id="work-heading">How I Work</h3>
+            <p>My work usually starts with a messy question:</p>
+            <ul class="compact-list">
+              <li>What are we really trying to understand?</li>
+              <li>What decision will this support?</li>
+              <li>What data can we trust?</li>
+              <li>What should be automated, modeled, generated, or left human-in-the-loop?</li>
+              <li>How will we know if the system is working?</li>
+            </ul>
+            <p>
+              From there, I move from ambiguity to architecture: define the problem, shape the data, build the prototype, evaluate the output, harden the system, and create the documentation or governance needed for others to trust and use it.
+            </p>
+            <p>
+              I am comfortable operating across strategy and implementation: executive communication, product framing, data pipelines, model evaluation, AI architecture, experimentation, stakeholder alignment, and team enablement.
+            </p>
+          </section>
+
+          <section aria-labelledby="focus-heading">
+            <h3 id="focus-heading" class="section-heading">Focus Areas</h3>
+            <div class="card-grid">
+              <article class="card">
+                <h4>Applied AI &amp; AI Architecture</h4>
+                <p>LLM-assisted workflows, agentic systems, retrieval patterns, prompt orchestration, evaluation harnesses, reliability gates, Copilot tooling, and production-readiness patterns.</p>
+              </article>
+              <article class="card">
+                <h4>Data Science &amp; Product Intelligence</h4>
+                <p>Forecasting, anomaly detection, segmentation, collaborative filtering, classification, experimentation, engagement metrics, and roadmap decision support.</p>
+              </article>
+              <article class="card">
+                <h4>Data Platforms &amp; Analytics Engineering</h4>
+                <p>Python, SQL, PySpark, Azure Databricks, Azure Synapse, Azure ML, Power BI, ScopeScript, Docker, Git workflows, ETL/ELT, feature engineering, and enterprise data modeling.</p>
+              </article>
+              <article class="card">
+                <h4>Human-Centered AI &amp; Research</h4>
+                <p>Accessibility research, neurodivergence, communication systems, responsible AI, cognitive interpretation, consciousness research, qualitative methods, and interdisciplinary thinking.</p>
+              </article>
+              <article class="card">
+                <h4>Leadership &amp; Community</h4>
+                <p>Cross-functional leadership, intern management, mentoring, stakeholder trust-building, nonprofit leadership, women-in-tech community building, and technical education.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="content-block" aria-label="About closing statement">
+            <p>
+              I’m drawn to work that is both technically rigorous and deeply human: systems that make complex decisions more understandable, technologies that respect cognitive diversity, and AI that is evaluated not only by whether it works, but by whether it helps.
+            </p>
+          </section>
+        </div>
       </section>
 
       <!-- Resume ─────────────────────────────────────────────────── -->
@@ -305,7 +572,175 @@
         aria-labelledby="tab-projects"
       >
         <h2 class="section-heading">Projects</h2>
-        <p class="section-sub">Coming soon.</p>
+        <p class="section-sub">
+          Selected work across applied AI, data architecture, product intelligence, research, and community systems. Some projects are public or independent; others are described at a high level to respect confidentiality while showing the kind of problems, architecture, and impact involved.
+        </p>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <h3>HitsHome — AI Decision Intelligence for Real Estate</h3>
+            <p class="project-meta">
+              <span>Project type: Founder project / AI platform / real estate intelligence</span>
+              <span>Role: Founder &amp; Technical Lead</span>
+              <span>Status: In development</span>
+            </p>
+            <p>HitsHome is an AI-powered decision intelligence platform for real estate and location analytics. It is designed to help homebuyers, investors, and decision-makers evaluate markets, properties, risks, and tradeoffs using structured data, explainable scoring, and AI-assisted workflows.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>Multi-source geographic data pipelines across Census, housing, economic, and market datasets.</li>
+              <li>Standardized features across counties, places/cities, ZIP/ZCTA areas, and states.</li>
+              <li>Explainable scoring for market attractiveness, investment potential, risk, and decision confidence.</li>
+              <li>Personalized market matching and property matching concepts.</li>
+              <li>Agent-enabled workflows for structured research, comparison, and decision support.</li>
+              <li>Governance concepts around source quality, stale-data windows, confidence scoring, and explainability.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>Real estate decisions are emotionally and financially significant, yet the available information is fragmented, overly generic, or hard to interpret. HitsHome is an attempt to make complex location and property decisions clearer, more personal, and more evidence-based.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">AI Decision Intelligence</span><span class="tag">Real Estate Analytics</span><span class="tag">Data Pipelines</span><span class="tag">Explainable Scoring</span><span class="tag">Agentic Workflows</span><span class="tag">Product Strategy</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>AI Workflow Architecture &amp; Agentic Systems</h3>
+            <p class="project-meta"><span>Project type: Applied AI / architecture / tooling</span><span>Role: AI architect and builder</span></p>
+            <p>Designed and implemented LLM-assisted workflows for structured decision support, combining prompt orchestration, retrieval patterns, custom tools, evaluation scoring, reliability gates, review loops, and decision-state tracking.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>Agent-style architectures using structured tools and reusable workflow patterns.</li>
+              <li>Custom MCP server concepts and AI-assisted development workflows.</li>
+              <li>Multi-agent collaboration patterns for planning, review, implementation, and evaluation.</li>
+              <li>Evaluation harnesses to assess output correctness, consistency, quality thresholds, and reliability.</li>
+              <li>Human-in-the-loop design choices for higher-risk or ambiguous decisions.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>The value of generative AI depends less on a single prompt and more on the surrounding system: context, data access, tools, evaluation, user workflow, and governance. This work focuses on making AI useful, testable, and repeatable.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">LLM Systems</span><span class="tag">AI Agents</span><span class="tag">MCP</span><span class="tag">Evaluation</span><span class="tag">Reliability</span><span class="tag">Human-in-the-Loop</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>File Explorer Search Success Measurement</h3>
+            <p class="project-meta"><span>Project type: Product metric framework / search quality / AI product analytics</span><span>Role: Metric owner and data science lead</span></p>
+            <p>Designed and built a custom success-rate framework for File Explorer Search, creating a more nuanced way to evaluate search quality, user success, click behavior, result position, and task completion.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>Multi-component success metric design.</li>
+              <li>Weighted scoring logic for click-through quality and search outcome interpretation.</li>
+              <li>Analysis of abandonment, click-back behavior, result position, and task success.</li>
+              <li>Translation of complex telemetry into a decision-ready executive metric.</li>
+              <li>Alignment across partner teams on metric definitions and measurement quality.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>Search quality is not captured by a single click or usage count. A good metric needs to reflect whether users actually found what they needed, how confidently the product served them, and where the experience needs improvement.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">Search Analytics</span><span class="tag">Metric Design</span><span class="tag">Product Intelligence</span><span class="tag">Telemetry</span><span class="tag">Executive Reporting</span><span class="tag">AI Measurement</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>Click-to-Do AI Feature Measurement</h3>
+            <p class="project-meta"><span>Project type: AI feature analytics / onboarding funnel / product adoption</span><span>Role: Senior Data Scientist</span></p>
+            <p>Supported analytics and onboarding/adoption measurement for Click-to-Do, an AI-powered Windows feature, including funnel analysis, engagement measurement, and identification of priority drop-offs and adoption opportunities.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>Weekly Engagement Rate and onboarding funnel analysis.</li>
+              <li>Device and usage telemetry interpretation.</li>
+              <li>Drop-off analysis across eligibility, enablement, launch, engagement, and action completion.</li>
+              <li>Product recommendation support for roadmap and feature adoption.</li>
+              <li>Measurement logic for emerging AI experiences.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>AI product success depends not only on model capability, but on user discovery, onboarding, habit formation, and measurable value. This work focused on understanding where users engage, where they drop off, and which changes could move adoption.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">AI Product Analytics</span><span class="tag">Funnel Analysis</span><span class="tag">Engagement</span><span class="tag">Windows</span><span class="tag">Adoption Strategy</span><span class="tag">Experimentation</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>Microsoft Account Growth &amp; Executive Metric Strategy</h3>
+            <p class="project-meta"><span>Project type: Product analytics / strategic metrics / forecasting</span><span>Role: Senior Data Scientist</span></p>
+            <p>Owned and supported key Microsoft Account growth metrics and executive-facing analysis over multiple years, including recurring leadership updates, annual forecasts, roadmap inputs, anomaly detection, root-cause analysis, and target-setting.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>MAD, DAD, and MAU measurement.</li>
+              <li>Forecasting and annual planning inputs.</li>
+              <li>Roadmap prioritization based on metric movement and adoption patterns.</li>
+              <li>Root-cause analysis and anomaly detection.</li>
+              <li>Executive storytelling for senior leadership forums.</li>
+              <li>Metric alignment and logic harmonization across partner organizations.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>Large-scale product decisions require trusted measurement. This work helped create consistent, defensible views of account engagement and translated telemetry into strategic product action.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">Product Analytics</span><span class="tag">Forecasting</span><span class="tag">Executive Metrics</span><span class="tag">Growth</span><span class="tag">Experimentation</span><span class="tag">Data Strategy</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>Human-Centered AI &amp; Neurodivergence Research</h3>
+            <p class="project-meta"><span>Project type: Research / accessibility / responsible AI</span><span>Role: Research collaborator and co-author</span></p>
+            <p>Contributed to Microsoft Research collaborations focused on autistic adults, video calling, communication, stress, and AI design. This work connected qualitative research, cognitive difference, accessibility, and human-centered product thinking.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>Research vision and hypothesis generation.</li>
+              <li>Interviews, qualitative analysis, synthesis, and academic writing.</li>
+              <li>Human-centered AI considerations for neurodivergent users.</li>
+              <li>Communication and cognitive-processing models.</li>
+              <li>Ethical reflection on AI systems and accessibility.</li>
+            </ul>
+            <h4>Publications</h4>
+            <ul>
+              <li>“Managing Stress: The Needs of Autistic Adults in Video Calling” — Proceedings of the ACM on Human-Computer Interaction, CSCW 2019.</li>
+              <li>“Lessons Learned in Designing AI for Autistic Adults” — ASSETS 2020.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>AI and communication technologies should be designed with cognitive diversity in mind. This research shaped how I think about trust, interpretation, agency, and the human consequences of technical systems.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">Accessibility</span><span class="tag">Human-Centered AI</span><span class="tag">Neurodivergence</span><span class="tag">Research</span><span class="tag">HCI</span><span class="tag">Responsible Technology</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>SAP Enterprise Analytics &amp; BI Platform Modernization</h3>
+            <p class="project-meta"><span>Project type: Enterprise analytics / platform migration / BI systems</span><span>Role: Data scientist, product owner, QA developer, BI tools engineer</span></p>
+            <p>Built and modernized enterprise analytics systems across SAP environments, including predictive modeling, HANA data models, ETL workflows, platform migration strategy, automated testing, and internal BI tooling.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>SAP HANA data models and reporting workflows.</li>
+              <li>CRM/ERP analytics and predictive modeling.</li>
+              <li>Audit of large-scale reporting and data source dependencies.</li>
+              <li>Migration strategy for SAP BusinessObjects Platform.</li>
+              <li>Jenkins/Docker-based regression identification frameworks.</li>
+              <li>Automation and infrastructure decommissioning.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>Enterprise AI and analytics are only as good as the systems underneath them. This work built a foundation in messy real-world data systems, migration risk, operational reliability, and platform-scale analytics.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">Enterprise Analytics</span><span class="tag">SAP HANA</span><span class="tag">BI Platform</span><span class="tag">ETL</span><span class="tag">Migration Strategy</span><span class="tag">Automation</span>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <h3>Girls in Tech Vancouver &amp; Technical Education Initiatives</h3>
+            <p class="project-meta"><span>Project type: Community leadership / education / nonprofit</span><span>Role: Co-Founder, CEO, President, program founder</span></p>
+            <p>Co-founded and led Girls in Tech Vancouver, growing the organization to 400+ members, 30+ sponsors, 20+ events, and a 20+ volunteer team. Also founded SAP-UBC GIRLsmarts4tech, a partnership teaching computer science to Grade 7 girls.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>Nonprofit leadership and board governance.</li>
+              <li>Sponsor development and partnership building.</li>
+              <li>Volunteer team leadership and operations.</li>
+              <li>Youth education and women-in-technology programming.</li>
+              <li>Community growth, event strategy, and mentorship.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>Technology is shaped not only by systems, but by who gets access to build them. This work reflects my long-standing commitment to education, inclusion, mentorship, and creating pathways into technical fields.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">Leadership</span><span class="tag">Women in Tech</span><span class="tag">Education</span><span class="tag">Community Building</span><span class="tag">Mentorship</span><span class="tag">Nonprofit</span>
+            </div>
+          </article>
+        </div>
       </section>
 
       <!-- Contact -->
@@ -315,7 +750,61 @@
         aria-labelledby="tab-contact"
       >
         <h2 class="section-heading">Contact</h2>
-        <p class="section-sub">Coming soon.</p>
+        <p class="section-sub">
+          I’m open to conversations about AI architecture, applied AI systems, data science leadership, product intelligence, research collaborations, real estate decision technology, and mission-driven technical work.
+        </p>
+        <p class="section-sub">
+          For the fastest response, send a note through the form below or reach out directly by email or LinkedIn.
+        </p>
+
+        <div class="contact-layout">
+          <section class="content-block contact-links" aria-label="Contact links">
+            <p><strong>Email:</strong> <a href="mailto:jfwaldern@gmail.com">jfwaldern@gmail.com</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://ca.linkedin.com/in/jenniferwaldern" target="_blank" rel="noopener noreferrer">ca.linkedin.com/in/jenniferwaldern</a></p>
+            <p><strong>Location:</strong> Seattle, WA / Remote-friendly</p>
+            <p><strong>Resume:</strong> <a href="#resume">View Resume tab</a> or <a href="assets/resume/Jennifer_Waldern_AI_Architect_Resume.pdf" target="_blank" rel="noopener noreferrer">open PDF</a></p>
+            <p><strong>GitHub:</strong> <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener noreferrer">Add your GitHub profile URL here once finalized.</a></p>
+            <p>Please include a short note about what you’re reaching out about — role, collaboration, project, research, advising, or general connection.</p>
+          </section>
+
+          <section class="form-shell" aria-labelledby="contact-form-heading">
+            <h3 id="contact-form-heading" class="section-heading">Send a message</h3>
+            <p class="section-sub">
+              Use this form to send a note directly to my inbox. I’m happy to hear about relevant roles, AI/data projects, research collaborations, product ideas, or thoughtful professional connections.
+            </p>
+
+            <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+              <div class="field">
+                <label for="contact-name">Name</label>
+                <input id="contact-name" name="name" type="text" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input id="contact-email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="contact-subject">Subject</label>
+                <input id="contact-subject" name="subject" type="text" required />
+              </div>
+              <div class="field">
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="message" required></textarea>
+              </div>
+
+              <div class="visually-hidden" aria-hidden="true">
+                <label for="contact-company">Company</label>
+                <input id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <button class="btn btn-primary" type="submit">Send Message</button>
+            </form>
+            <p id="contact-form-feedback" class="form-feedback" aria-live="polite"></p>
+            <p class="form-feedback">
+              If the form does not load or submit correctly, email me directly at
+              <a href="mailto:jfwaldern@gmail.com">jfwaldern@gmail.com</a>.
+            </p>
+          </section>
+        </div>
       </section>
 
     </main>
@@ -328,8 +817,15 @@
 
       var tabs   = Array.from(document.querySelectorAll('[role="tab"]'));
       var panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+      var tabToHash = {
+        "tab-about": "about",
+        "tab-resume": "resume",
+        "tab-projects": "projects",
+        "tab-contact": "contact"
+      };
 
-      function activate(tab) {
+      function activate(tab, updateHash) {
+        if (typeof updateHash === "undefined") { updateHash = true; }
         tabs.forEach(function (t) {
           var selected = (t === tab);
           t.setAttribute("aria-selected", String(selected));
@@ -342,6 +838,16 @@
 
         // Persist active tab across page reloads
         try { sessionStorage.setItem("activeTab", tab.id); } catch (e) {}
+        if (updateHash) {
+          var hashValue = tabToHash[tab.id];
+          if (hashValue && window.location.hash !== "#" + hashValue) {
+            if (history.replaceState) {
+              history.replaceState(null, "", "#" + hashValue);
+            } else {
+              window.location.hash = hashValue;
+            }
+          }
+        }
       }
 
       tabs.forEach(function (tab) {
@@ -359,12 +865,60 @@
 
       // Restore last active tab from session
       try {
-        var saved = sessionStorage.getItem("activeTab");
-        if (saved) {
-          var t = document.getElementById(saved);
-          if (t) { activate(t); }
+        var hash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+        var hashTab = hash ? document.getElementById("tab-" + hash) : null;
+        if (hashTab) {
+          activate(hashTab, false);
+        } else {
+          var saved = sessionStorage.getItem("activeTab");
+          if (saved) {
+            var t = document.getElementById(saved);
+            if (t) { activate(t, false); }
+          }
         }
       } catch (e) {}
+
+      window.addEventListener("hashchange", function () {
+        var hash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+        var targetTab = document.getElementById("tab-" + hash);
+        if (targetTab) { activate(targetTab, false); }
+      });
+
+      var contactForm = document.getElementById("contact-form");
+      var contactFormFeedback = document.getElementById("contact-form-feedback");
+      if (contactForm && contactFormFeedback) {
+        contactForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var honeypot = document.getElementById("contact-company");
+          if (honeypot && honeypot.value) {
+            contactFormFeedback.textContent = "Unable to send message. Please email directly at jfwaldern@gmail.com.";
+            contactFormFeedback.className = "form-feedback error";
+            return;
+          }
+
+          var submitButton = contactForm.querySelector('button[type="submit"]');
+          if (submitButton) { submitButton.disabled = true; }
+          contactFormFeedback.textContent = "Sending message...";
+          contactFormFeedback.className = "form-feedback";
+
+          fetch(contactForm.action, {
+            method: "POST",
+            body: new FormData(contactForm),
+            headers: { "Accept": "application/json" }
+          }).then(function (response) {
+            if (!response.ok) { throw new Error("submit_failed"); }
+            contactForm.reset();
+            contactFormFeedback.textContent = "Thank you — your message has been sent.";
+            contactFormFeedback.className = "form-feedback success";
+          }).catch(function () {
+            contactFormFeedback.textContent = "The form could not be submitted. Please email directly at jfwaldern@gmail.com.";
+            contactFormFeedback.className = "form-feedback error";
+          }).finally(function () {
+            if (submitButton) { submitButton.disabled = false; }
+          });
+        });
+      }
 
       // ── PDF iframe fallback ──────────────────────────────────────
       var iframe   = document.getElementById("resume-iframe");
