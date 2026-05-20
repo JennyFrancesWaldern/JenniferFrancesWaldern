@@ -376,6 +376,12 @@
       var resumeBaseName = "Jennifer_Waldern_AI_Architect_Resume";
       var resumeDir = "assets/resume";
       var altResumeDir = "docs/assets/resume";
+      var githubPages404Markers = {
+        title: "404",
+        bodyA: "github pages",
+        bodyB: "file not found",
+        bodyC: "@githubstatus"
+      };
 
       var resumePaths = {
         pdf: {
@@ -428,8 +434,10 @@
                 ? frameDoc.body.textContent.toLowerCase()
                 : "";
               var looksLikeGithubPages404 =
-                (titleText.indexOf("404") !== -1 && bodyText.indexOf("github pages") !== -1) ||
-                (bodyText.indexOf("file not found") !== -1 && bodyText.indexOf("@githubstatus") !== -1);
+                (titleText.indexOf(githubPages404Markers.title) !== -1 &&
+                 bodyText.indexOf(githubPages404Markers.bodyA) !== -1) ||
+                (bodyText.indexOf(githubPages404Markers.bodyB) !== -1 &&
+                 bodyText.indexOf(githubPages404Markers.bodyC) !== -1);
 
               if (looksLikeGithubPages404) {
                 if (!usingAltPaths) {
@@ -440,7 +448,13 @@
                 return;
               }
 
-              if (iframe.clientHeight === 0) { showFallback(); }
+              if (iframe.clientHeight === 0) {
+                if (!usingAltPaths) {
+                  switchToAltPaths();
+                } else {
+                  showFallback();
+                }
+              }
             } catch (e) { /* cross-origin security error — PDF is loading fine */ }
           }, 800);
         });
