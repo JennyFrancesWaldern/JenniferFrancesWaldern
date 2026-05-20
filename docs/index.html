@@ -372,6 +372,7 @@
       var downloadPdfLink = document.getElementById("resume-download-pdf");
       var downloadDocxLink = document.getElementById("resume-download-docx");
       var openPdfLink = document.getElementById("resume-open-pdf");
+      var usingAltPaths = false;
 
       var resumePaths = {
         pdf: {
@@ -384,12 +385,6 @@
         }
       };
 
-      function fileExists(path) {
-        return fetch(path, { method: "HEAD", cache: "no-store" })
-          .then(function (res) { return res.ok; })
-          .catch(function () { return false; });
-      }
-
       function applyResumePaths(pdfPath, docxPath) {
         if (iframe) { iframe.setAttribute("src", pdfPath); }
         if (downloadPdfLink) { downloadPdfLink.setAttribute("href", pdfPath); }
@@ -397,17 +392,10 @@
         if (downloadDocxLink) { downloadDocxLink.setAttribute("href", docxPath); }
       }
 
-      function initializeResumePaths() {
-        if (window.location.protocol === "file:") { return; }
-
-        Promise.all([
-          fileExists(resumePaths.pdf.primary),
-          fileExists(resumePaths.docx.primary)
-        ]).then(function (exists) {
-          var pdfPath = exists[0] ? resumePaths.pdf.primary : resumePaths.pdf.alt;
-          var docxPath = exists[1] ? resumePaths.docx.primary : resumePaths.docx.alt;
-          applyResumePaths(pdfPath, docxPath);
-        });
+      function switchToAltPaths() {
+        if (usingAltPaths) { return; }
+        usingAltPaths = true;
+        applyResumePaths(resumePaths.pdf.alt, resumePaths.docx.alt);
       }
 
       function showFallback() {
@@ -416,7 +404,13 @@
       }
 
       if (iframe) {
-        iframe.addEventListener("error", showFallback);
+        iframe.addEventListener("error", function () {
+          if (!usingAltPaths) {
+            switchToAltPaths();
+          } else {
+            showFallback();
+          }
+        });
 
         // Heuristic: if the iframe stays 0-height after load the browser
         // may have blocked inline PDF rendering (e.g., some mobile WebKit).
@@ -430,8 +424,6 @@
           }, 800);
         });
       }
-
-      initializeResumePaths();
     }());
   </script>
 </body>
