@@ -621,6 +621,25 @@
           </article>
 
           <article class="project-card">
+            <h3>LLM Judge Trustworthiness &mdash; Meta-Evaluation</h3>
+            <p class="project-meta"><span>Project type: LLM evaluation research / methodology</span><span>Role: Sole researcher</span><span>Status: Analysis plan published, results pending</span></p>
+            <p>A pre-registered study on how much an LLM judge can be trusted to score grounded-generation quality, and which judge biases move the score enough to change a ranking rather than just shift a number. The full analysis plan is published before any result exists, including two open questions still unresolved and a contamination check that runs before the main experiment rather than surfacing in limitations afterward.</p>
+            <h4>What it includes</h4>
+            <ul>
+              <li>A pre-registered decision rule for a data-contamination check, fixed before the check ran.</li>
+              <li>Blind pairwise human labeling with a hidden repeat subset for measuring intra-rater agreement.</li>
+              <li>A documented decisions log recording what changed in the design, why, and what prompted it.</li>
+              <li>An explicit power analysis stating which planned comparisons are adequately powered and which are descriptive only, decided before labeling begins.</li>
+            </ul>
+            <h4>Why it matters</h4>
+            <p>LLM judges are increasingly used as a cheap substitute for human review at scale. &ldquo;Mostly agrees with humans on average&rdquo; is a different claim from &ldquo;safe to trust on the comparisons that matter&rdquo; &mdash; this project is built to make that distinction checkable, not just asserted.</p>
+            <div class="tags" aria-label="Project tags">
+              <span class="tag">LLM Evaluation</span><span class="tag">Pre-Registration</span><span class="tag">Bias Testing</span><span class="tag">Research Methodology</span><span class="tag">Judge Reliability</span>
+            </div>
+            <p class="project-links"><a href="https://github.com/JennyFrancesWaldern/judge-meta-eval/blob/main/ANALYSIS_PLAN.md">Read the published analysis plan &rarr;</a></p>
+          </article>
+
+          <article class="project-card">
             <h3>File Explorer Search Success Measurement</h3>
             <p class="project-meta"><span>Project type: Product metric framework / search quality / AI product analytics</span><span>Role: Metric owner and data science lead</span></p>
             <p>Designed and built a custom success-rate framework for File Explorer Search, creating a more nuanced way to evaluate search quality, user success, click behavior, result position, and task completion.</p>
