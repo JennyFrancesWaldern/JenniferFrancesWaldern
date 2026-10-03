@@ -9,6 +9,7 @@ All deployable files live in the `docs/` folder:
 ```
 docs/
 ├── index.html                          ← single-page portfolio (tabbed: About / Resume / Projects / Contact)
+├── sitemap.xml                         ← submit in Google Search Console
 └── assets/
     ├── img/
     │   └── jennifer-waldern.jpg          ← About-tab photo (4:5 crop)
