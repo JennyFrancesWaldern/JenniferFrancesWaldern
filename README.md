@@ -10,6 +10,8 @@ All deployable files live in the `docs/` folder:
 docs/
 ├── index.html                          ← single-page portfolio (tabbed: About / Resume / Projects / Contact)
 └── assets/
+    ├── img/
+    │   └── jennifer-waldern.jpg          ← About-tab photo (4:5 crop)
     └── resume/
         ├── Jennifer_Waldern_AI_Architect_Resume.pdf
         └── Jennifer_Waldern_AI_Architect_Resume.docx
