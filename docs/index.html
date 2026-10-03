@@ -39,7 +39,7 @@
     /* ── Layout ──────────────────────────────────────────────────── */
     .layout {
       display: grid;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: auto auto 1fr;
       min-height: 100vh;
     }
 
@@ -356,22 +356,19 @@
       display: block;
     }
 
-    /* Fallback shown when iframe cannot render PDF */
-    .pdf-fallback {
-      display: none; /* shown by JS if iframe errors */
-      padding: 2rem;
-      text-align: center;
-      color: var(--color-muted);
-      font-size: 0.9rem;
+    /* Link card shown instead of the viewer on phones and touch devices */
+    .pdf-mobile { display: none; }
+    .pdf-mobile p { color: var(--color-muted); margin-bottom: 0.75rem; }
+    @media (max-width: 760px), (pointer: coarse) {
+      .pdf-wrapper { display: none; }
+      .pdf-mobile { display: block; }
     }
-    .pdf-fallback a { font-weight: 600; }
 
     /* Mobile: reduce wrapper height */
     @media (max-width: 640px) {
       header { padding: 1rem; }
       main   { padding: 1rem; }
       nav[role="tablist"] { padding: 0 1rem; }
-      .pdf-wrapper { height: clamp(400px, 75vw, 700px); }
     }
 
     @media (max-width: 760px) {
@@ -576,6 +573,12 @@
           </a>
         </div>
 
+        <!-- Phones can't reliably display an embedded PDF, so they get a link instead -->
+        <div class="pdf-mobile content-block">
+          <p>The embedded viewer works best on a larger screen.</p>
+          <a class="btn" href="assets/resume/Jennifer_Waldern_Resume.pdf" target="_blank" rel="noopener noreferrer">Open the PDF ↗</a>
+        </div>
+
         <!-- Embedded PDF viewer -->
         <div class="pdf-wrapper">
           <iframe
@@ -584,20 +587,6 @@
             title="Jennifer Frances Waldern — Resume (PDF)"
             aria-label="Embedded PDF resume viewer"
           ></iframe>
-
-          <!-- Fallback — displayed by JS when iframe load fails -->
-          <div class="pdf-fallback" id="resume-fallback" role="alert" aria-live="polite">
-            <p>
-              Your browser could not display the embedded PDF.
-              <a
-                id="resume-open-pdf"
-                href="assets/resume/Jennifer_Waldern_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >Open the PDF directly ↗</a>
-              or use one of the download links above.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -969,103 +958,6 @@
           }).finally(function () {
             if (submitButton) { submitButton.disabled = false; }
           });
-        });
-      }
-
-      // ── PDF iframe fallback ──────────────────────────────────────
-      var iframe   = document.getElementById("resume-iframe");
-      var fallback = document.getElementById("resume-fallback");
-      var downloadPdfLink = document.getElementById("resume-download-pdf");
-      var downloadDocxLink = document.getElementById("resume-download-docx");
-      var openPdfLink = document.getElementById("resume-open-pdf");
-      var usingAltPaths = false;
-      var resumeBaseName = "Jennifer_Waldern_Resume";
-      var resumeDir = "assets/resume";
-      var altResumeDir = "docs/assets/resume";
-      var githubPages404Markers = {
-        title: "404",
-        provider: "github pages"
-      };
-
-      var resumePaths = {
-        pdf: {
-          primary: resumeDir + "/" + resumeBaseName + ".pdf",
-          alt:     altResumeDir + "/" + resumeBaseName + ".pdf"
-        },
-        docx: {
-          primary: resumeDir + "/" + resumeBaseName + ".docx",
-          alt:     altResumeDir + "/" + resumeBaseName + ".docx"
-        }
-      };
-
-      function applyResumePaths(pdfPath, docxPath) {
-        if (iframe) { iframe.setAttribute("src", pdfPath); }
-        if (downloadPdfLink) { downloadPdfLink.setAttribute("href", pdfPath); }
-        if (openPdfLink) { openPdfLink.setAttribute("href", pdfPath); }
-        if (downloadDocxLink) { downloadDocxLink.setAttribute("href", docxPath); }
-      }
-
-      function switchToAltPaths() {
-        if (usingAltPaths) { return; }
-        usingAltPaths = true;
-        applyResumePaths(resumePaths.pdf.alt, resumePaths.docx.alt);
-      }
-
-      function showFallback() {
-        if (iframe)   { iframe.style.display   = "none"; }
-        if (fallback) { fallback.style.display  = "block"; }
-      }
-
-      if (iframe) {
-        iframe.addEventListener("error", function () {
-          if (!usingAltPaths) {
-            switchToAltPaths();
-          } else {
-            showFallback();
-          }
-        });
-
-        // Heuristic: if the iframe stays 0-height after load the browser
-        // may have blocked inline PDF rendering (e.g., some mobile WebKit).
-        iframe.addEventListener("load", function () {
-          setTimeout(function () {
-            try {
-              // contentDocument can be unavailable for cross-origin PDFs.
-              // Detect obvious GitHub Pages 404 loads, then use clientHeight as fallback signal.
-              var frameDoc = iframe.contentDocument;
-              var titleText = frameDoc && frameDoc.title ? frameDoc.title.toLowerCase() : "";
-              var looksLikeGithubPages404 =
-                (titleText.indexOf(githubPages404Markers.title) !== -1 &&
-                 titleText.indexOf(githubPages404Markers.provider) !== -1);
-
-              if (looksLikeGithubPages404) {
-                if (!usingAltPaths) {
-                  switchToAltPaths();
-                } else {
-                  showFallback();
-                }
-                return;
-              }
-
-              if (iframe.clientHeight === 0) {
-                if (!usingAltPaths) {
-                  switchToAltPaths();
-                } else {
-                  showFallback();
-                }
-              }
-            } catch (e) {
-              if (e && e.name === "SecurityError") {
-                /* cross-origin security error — PDF is likely loading fine */
-                return;
-              }
-              if (!usingAltPaths) {
-                switchToAltPaths();
-              } else {
-                showFallback();
-              }
-            }
-          }, 800);
         });
       }
     }());
