@@ -13,8 +13,8 @@ docs/
     ├── img/
     │   └── jennifer-waldern.jpg          ← About-tab photo (4:5 crop)
     └── resume/
-        ├── Jennifer_Waldern_AI_Architect_Resume.pdf
-        └── Jennifer_Waldern_AI_Architect_Resume.docx
+        ├── Jennifer_Waldern_Resume.pdf
+        └── Jennifer_Waldern_Resume.docx
 ```
 
 ## Local preview
